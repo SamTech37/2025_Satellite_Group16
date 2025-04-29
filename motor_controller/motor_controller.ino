@@ -13,22 +13,29 @@ void setup() {
   servo2.attach(10);
 }
 
-void loop() {
+
+void light_to_angle(){
   lightValue = analogRead(ldrPin);  // 讀取光線值（範圍：0～1023）
 
   // 假設光越強 → 轉越大角度
-  int angle = map(lightValue, lv_min, lv_max, 0, 180);  // 映射成角度
+  int angle = map(lightValue, lv_max, lv_min, 0, 180);  // 映射成角度
   servo1.write(angle);
   servo2.write(180 - angle);  // 相反方向轉動
   
 
+  // log for debugging
   Serial.print("Light = ");
   Serial.println(lightValue);
 
   Serial.print("Angle 1 = ");
   Serial.println(angle);
 
-
-
   delay(1000);  // delay 1000 ms for testing
+}
+
+void loop() {
+
+  // test_servos();
+  light_to_angle();
+ 
 }
